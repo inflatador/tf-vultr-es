@@ -1,0 +1,24 @@
+#cloud-config
+
+hostname: simulated-love
+fqdn: simulated-love.public-cloud.net
+
+users:
+  - name: gizzmonic
+    groups: wheel
+    lock_passwd: false
+    passwd: $6$gBbGMN1xF/88tkyC$M4.UuNoFeTRO2aFcHpDIPjyHB8tFLLS8y3iGQnnq0BOwQ9Uw9BRLXtHNjjsMgNHe5y77y7dKQK5TOLcWEZxny0
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+5ssY+G2SlScd6n5oXTxNvAsO8EfGU9syjHN1llYE9 gizzmonic@Clankio2.local
+
+write_files:
+  - path: /etc/sudoers.d/10-gizzmonic
+    content: |
+              gizzmonic ALL=(ALL) NOPASSWD: ALL
+    permissions:
+      '0640'
+    owner: root:root
+
+packages:
+  - epel-release
+  - vim
